@@ -1,0 +1,80 @@
+[
+    {
+        "id": "1",
+        "type": "inject",
+        "z": "flow1",
+        "name": "Piedra",
+        "props": [{"p": "payload"}],
+        "payload": "piedra",
+        "payloadType": "str",
+        "topic": "",
+        "x": 200,
+        "y": 100,
+        "wires": [["3"]]
+    },
+    {
+        "id": "2",
+        "type": "inject",
+        "z": "flow1",
+        "name": "Papel",
+        "props": [{"p": "payload"}],
+        "payload": "papel",
+        "payloadType": "str",
+        "topic": "",
+        "x": 200,
+        "y": 150,
+        "wires": [["3"]]
+    },
+    {
+        "id": "3",
+        "type": "inject",
+        "z": "flow1",
+        "name": "Tijeras",
+        "props": [{"p": "payload"}],
+        "payload": "tijeras",
+        "payloadType": "str",
+        "topic": "",
+        "x": 200,
+        "y": 200,
+        "wires": [["3"]]
+    },
+    {
+        "id": "4",
+        "type": "function",
+        "z": "flow1",
+        "name": "Elección de la computadora",
+        "func": "let opciones = [\"piedra\", \"papel\", \"tijeras\"];\nlet seleccionComputadora = opciones[Math.floor(Math.random() * 3)];\nmsg.computadora = seleccionComputadora;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 400,
+        "y": 150,
+        "wires": [["5"]]
+    },
+    {
+        "id": "5",
+        "type": "function",
+        "z": "flow1",
+        "name": "Lógica del juego",
+        "func": "let jugador = msg.payload;\nlet computadora = msg.computadora;\n\nif (jugador === computadora) {\n    msg.resultado = \"Empate\";\n} else if (\n    (jugador === \"piedra\" && computadora === \"tijeras\") ||\n    (jugador === \"papel\" && computadora === \"piedra\") ||\n    (jugador === \"tijeras\" && computadora === \"papel\")\n) {\n    msg.resultado = \"¡Ganaste!\";\n} else {\n    msg.resultado = \"¡Perdiste!\";\n}\n\nmsg.detalle = `Jugador: ${jugador}, Computadora: ${computadora}`;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 600,
+        "y": 150,
+        "wires": [["6"]]
+    },
+    {
+        "id": "6",
+        "type": "debug",
+        "z": "flow1",
+        "name": "Resultado",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "resultado",
+        "targetType": "msg",
+        "x": 800,
+        "y": 150,
+        "wires": []
+    }
+]
