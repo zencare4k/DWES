@@ -1,7 +1,7 @@
 function playerElection(playerChoice) {
     const computerChoice = Math.floor(Math.random() * 3);
     console.log("Elección del jugador:", playerChoice);  
-    console.log("Elección de la computadora:", computerChoice);  
+    console.log("Elección de la cpu:", computerChoice);  
     
     if (playerChoice === computerChoice) {
         console.log("¡Es un empate!");
@@ -10,7 +10,7 @@ function playerElection(playerChoice) {
                (playerChoice === 2 && computerChoice === 1)) {
         console.log("¡Has ganado!");
     } else {
-        console.log("¡Ha ganado la computadora!");
+        console.log("¡Ha ganado la cpu!");
     }
 }
 
