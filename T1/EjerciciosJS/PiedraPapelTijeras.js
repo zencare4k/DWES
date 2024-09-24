@@ -1,7 +1,7 @@
 function playerElection(playerChoice) {
     const computerChoice = Math.floor(Math.random() * 3);
-    console.log("Elección del jugador:", playerChoice);  // Puedes poner un breakpoint aquí
-    console.log("Elección de la computadora:", computerChoice);  // Y aquí también
+    console.log("Elección del jugador:", playerChoice);  
+    console.log("Elección de la computadora:", computerChoice);  
     
     if (playerChoice === computerChoice) {
         console.log("¡Es un empate!");
