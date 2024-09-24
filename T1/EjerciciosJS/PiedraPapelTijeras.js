@@ -14,5 +14,5 @@ function playerElection(playerChoice) {
     }
 }
 
-// 0 = Papel, 1 = Tijeras 2 = Piedra, 
+// 0 = Papel, 1 = Tijeras, 2 = Piedra
 playerElection(2);  
