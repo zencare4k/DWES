@@ -7,5 +7,6 @@ function eliminarArchivo() {
 }
 
 function editarNota() {
+function editarNota(archivo) {
     
 }
