@@ -3,27 +3,24 @@
   "version": "1.0.0",
   "main": "node09-ejercicio1.js",
   "scripts": {
-   "start": "node index.js",
- "dev": "node --watch index.js",
- "clear:modules": "rimraf **/node_modules",
- "clear:locks": "rimraf **/package-lock.json",
- "clear": "npm run clear:test && npm run clear:locks && npm run clear:modules",
- "clear: env " : "rimraf **/.env",
- "copy:env": "for d in workspaces/*; do cp ${d}/.env.template ${d}/.env; done"
- 
+    
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "clear:modules": "rimraf **/node_modules",
+    "clear:locks": "rimraf **/package-lock.json",
+    "clear": "npm run clear:test && npm run clear:locks && npm run clear:modules",
+    "clear: env ": "rimraf **/.env",
+    "copy:env": "for d in workspaces/*; do cp ${d}/.env.template ${d}/.env; done"
+
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "@faker-js/faker": "^9.0.3",
     "chalk": "^5.3.0",
+    "color": "^4.2.3",
     "express": "^4.21.1"
-  }
-
-
+  },
+  "description": ""
 }
-
-
-  
