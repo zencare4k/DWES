@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "t1",
   "version": "1.0.0",
   "main": "node09-ejercicio1.js",
@@ -23,4 +24,34 @@
     "express": "^4.21.1"
   },
   "description": ""
+=======
+  "name": "09-npm-script",
+  "version": "1.0.0",
+  "description": "",
+  "main": "date.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "clear:modules": "rimraf **/node_modules",
+    "clear:locks": "rimraf **/package-lock.json",
+    "clear": "npm run clear:test && npm run clear:locks && npm run clear:modules",
+    "clear:env": "rimraf **/.env",
+    "copy:env": "for d in workspaces/*; do cp ${d}/.env.template ${d}/.env; done",
+    "crear": "mkdir files",  
+    "crear:js": "mkdir -p files && touch files/$npm_config_nombre.js",  
+    "crear:carpeta": "mkdir -p files/$npm_config_nombre",  
+    "borrar": "rm -rf files",
+    "borrar:js": "find files -type f -name '*.js' -delete",
+    "imprime:azul": "node scripts/imprimeAzul.js",
+    "imprime:rojo": "node scripts/imprimeRojo.js",
+    "imprime:amarillo": "node scripts/imprimeAmarillo.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "rimraf": "^6.0.1"
+  }
+>>>>>>> bcb673bd4eb4e61f091c9b2616166e38b61ab6a0
 }
