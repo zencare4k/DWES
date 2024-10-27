@@ -3,7 +3,7 @@ const fetch = require('node-fetch');
 async function fetchData() {
   const response = await fetch('https://jsonplaceholder.typicode.com/todos/1');
   const data = await response.json();
-  console.log(data); // Coloca un punto de ruptura aquí para inspeccionar `data`
+  console.log(data); 
 }
 
 fetchData();
@@ -20,4 +20,4 @@ const myObject = {
   }
 };
 
-console.log(myObject); // Punto de ruptura aquí
+console.log(myObject);
