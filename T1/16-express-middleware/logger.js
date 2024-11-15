@@ -11,4 +11,9 @@ const logger = winston.createLogger({
         winston.format.timestamp(),
         customFormat
     ),
+    transports: [
+        new winston.transports.Console()
+    ]
 })
+
+module.exports = logger 
