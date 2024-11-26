@@ -1,0 +1,137 @@
+openapi: 3.0.0
+info:
+  title: users
+  description: API para gestionar un recurso llamado "items".
+  version: "1.0.0"
+servers:
+  - url: http://localhost:3000
+paths:
+  /users:
+    get:
+      summary: Obtener lista de items
+      description: Recupera una lista de todos los items disponibles.
+      responses:
+        '200':
+          description: Lista de items recuperada exitosamente.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+    post:
+      summary: Crear un nuevo usuario
+      description: Agrega un nuevo item al sistema.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Nuevo usuario"
+      responses:
+        '201':
+          description: Item creado exitosamente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+  /users/{userid}:
+    get:
+      summary: Obtener un user por ID
+      description: Recupera un item específico usando su ID.
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Item recuperado exitosamente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+        '404':
+          description: Item no encontrado.
+    put:
+      summary: Actualizar un item completamente
+      description: Reemplaza completamente un item existente.
+      parameters:
+        - name: userid
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "user actualizado"
+      responses:
+        '200':
+          description: Item actualizado exitosamente.
+        '404':
+          description: Item no encontrado.
+    patch:
+      summary: Actualizar parcialmente un item
+      description: Modifica parcialmente un item existente.
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Nombre modificado"
+      responses:
+        '200':
+          description: Item modificado exitosamente.
+        '404':
+          description: Item no encontrado.
+    delete:
+      summary: Eliminar un item
+      description: Borra un item usando su ID.
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Item eliminado exitosamente.
+        '404':
+          description: Item no encontrado.
