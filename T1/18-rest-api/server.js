@@ -62,7 +62,8 @@ app.patch('/users/:userid', (req, res) => {
 });
 
 app.delete('/users/:userid', (req, res) => {
-    const index = users.findIndex(u => u.id === req.params.userid);
+    const index = users.fi
+    dIndex(u => u.id === req.params.userid);
     if (index !== -1) {
         users.splice(index, 1);
         res.status(204).send();
