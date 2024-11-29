@@ -86,7 +86,3 @@ app.listen(PORT, () => {
 
 //Seguridad de la api
 
-bcrypt.hash(admin, saltRounds, (err, hash) => {
-    if (err) throw err;
-    console.log("Hash de contraseña: ", hash);
-});
