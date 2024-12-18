@@ -7,6 +7,9 @@
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
     "test": "jest --coverage",
+    "crear" : "echo 1 | node Notes.js",
+    "editar" : "echo 2 | node Notes.js",
+    "eliminar" : "echo 3 | node Notes.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },

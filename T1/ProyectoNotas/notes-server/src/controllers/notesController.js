@@ -6,75 +6,131 @@ class NotesController {
     this.notesService = notesService;
   }
 
-  async createNote(req, res) {
-    try {
-      const noteData = req.body;
-      const newNote = await this.notesService.create(noteData);
-      
-      const noteId = newNote.id;
-      const notePath = path.join(__dirname, '../notas', `${noteId}.note`);
-      fs.writeFile(notePath, JSON.stringify(newNote), (err) => {
-        if (err) {
-          return res.status(500).json({ message: 'Error creating note file', error: err.message });
-        }
-      });
+  async getNotes(req, res) {
+    res.json({ message: 'Listado de notas', user: req.user });
+  }
 
-      res.status(201).json(newNote);
-    } catch (error) {
-      res.status(500).json({ message: 'Error creating note', error: error.message });
+  async createNote(req, res) {
+    const { title, content } = req.body;
+    if (!title || !content) {
+      return res.status(400).json({ message: 'Título y contenido son requeridos' });
     }
+    const trimmedTitle = title.trim();
+    const trimmedContent = content.trim();
+    if (trimmedTitle === '' || trimmedContent === '') {
+      return res.status(400).json({ message: 'Título y contenido no pueden estar vacíos' });
+    }
+    // Aquí podrías asociar la nota con req.user.id
+    res.status(201).json({ message: 'Nota creada', title: trimmedTitle, content: trimmedContent, user: req.user });
   }
 
   async editNote(req, res) {
-    try {
-      const { id } = req.params;
-      const noteData = req.body;
-      const updatedNote = await this.notesService.edit(id, noteData);
-      if (!updatedNote) {
-        return res.status(404).json({ message: 'Note not found' });
-      }
+    const { id } = req.params;
+    const { content } = req.body;
 
-      const notePath = path.join(__dirname, '../notas', `${id}.note`);
-      fs.writeFile(notePath, JSON.stringify(updatedNote), (err) => {
-        if (err) {
-          return res.status(500).json({ message: 'Error updating note file', error: err.message });
-        }
-      });
+    console.log('Body recibido:', req.body); // Depuración: imprime el contenido recibido
 
-      res.status(200).json(updatedNote);
-    } catch (error) {
-      res.status(500).json({ message: 'Error editing note', error: error.message });
+    if (!content) {
+      return res.status(400).send('Contenido es requerido');
     }
+
+    // Simulación de actualización (puedes cambiar esto según tu lógica)
+    res.json({ message: `Nota ${id} actualizada`, content });
   }
 
   async deleteNote(req, res) {
-    try {
-      const { id } = req.params;
-      const deleted = await this.notesService.delete(id);
-      if (!deleted) {
-        return res.status(404).json({ message: 'Note not found' });
-      }
-
-      const notePath = path.join(__dirname, '../notas', `${id}.note`);
-      fs.unlink(notePath, (err) => {
-        if (err) {
-          return res.status(500).json({ message: 'Error deleting note file', error: err.message });
-        }
-      });
-
-      res.status(204).send();
-    } catch (error) {
-      res.status(500).json({ message: 'Error deleting note', error: error.message });
-    }
+    const { id } = req.params;
+    res.json({ message: `Nota ${id} eliminada` });
   }
 
-  async getNotes(req, res) {
-    try {
-      const notes = await this.notesService.getAll();
-      res.status(200).json(notes);
-    } catch (error) {
-      res.status(500).json({ message: 'Error retrieving notes', error: error.message });
+  async getAllNotes(req, res) {
+    const { 
+      sortBy = 'date', 
+      filterTitle, 
+      filterContent, 
+      filterCategory, 
+      startDate, 
+      endDate,
+      page = 1, 
+      limit = 10 
+    } = req.query;
+
+    let notes = [
+      { title: "Nota 1", content: "Contenido de prueba", category: "Trabajo", date: "2024-06-01", size: 100 },
+      { title: "Nota 2", content: "Contenido importante", category: "Personal", date: "2024-06-10", size: 200 },
+      { title: "Nota 3", content: "Contenido aleatorio", category: "Trabajo", date: "2024-06-05", size: 150 },
+    ];
+
+    if (filterTitle) {
+      notes = notes.filter(note => note.title.includes(filterTitle));
     }
+    if (filterContent) {
+      notes = notes.filter(note => note.content.includes(filterContent));
+    }
+    if (filterCategory) {
+      notes = notes.filter(note => note.category === filterCategory);
+    }
+    if (startDate && endDate) {
+      notes = notes.filter(note =>
+        new Date(note.date) >= new Date(startDate) &&
+        new Date(note.date) <= new Date(endDate)
+      );
+    }
+
+    if (sortBy === 'title') {
+      notes.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (sortBy === 'size') {
+      notes.sort((a, b) => a.size - b.size);
+    } else {
+      notes.sort((a, b) => new Date(b.date) - new Date(a.date));
+    }
+
+    const totalItems = notes.length;
+    const startIndex = (page - 1) * limit;
+    const paginatedNotes = notes.slice(startIndex, startIndex + Number(limit));
+    const totalPages = Math.ceil(totalItems / limit);
+
+    res.json({
+      totalItems,
+      totalPages,
+      currentPage: Number(page),
+      notes: paginatedNotes
+    });
+  }
+
+  async exportNotes(req, res) {
+    const { filterTitle, filterCategory, startDate, endDate } = req.query;
+
+    const notes = [
+      { title: "Nota 1", content: "Contenido de prueba", category: "Trabajo", date: "2024-06-01" },
+      { title: "Nota 2", content: "Contenido importante", category: "Personal", date: "2024-06-10" },
+      { title: "Nota 3", content: "Contenido aleatorio", category: "Trabajo", date: "2024-06-05" },
+    ];
+
+    let filteredNotes = notes;
+    if (filterTitle) {
+      filteredNotes = filteredNotes.filter(note => note.title.includes(filterTitle));
+    }
+    if (filterCategory) {
+      filteredNotes = filteredNotes.filter(note => note.category === filterCategory);
+    }
+    if (startDate && endDate) {
+      filteredNotes = filteredNotes.filter(note =>
+        new Date(note.date) >= new Date(startDate) &&
+        new Date(note.date) <= new Date(endDate)
+      );
+    }
+
+    if (filteredNotes.length === 0) {
+      return res.status(404).send('No hay notas que coincidan con los filtros.');
+    }
+
+    const exportContent = JSON.stringify(filteredNotes, null, 2);
+    const fileName = `exported_notes_${Date.now()}.notes`;
+
+    res.setHeader('Content-Disposition', `attachment; filename=${fileName}`);
+    res.setHeader('Content-Type', 'application/json');
+    res.send(exportContent);
   }
 }
 
