@@ -12,7 +12,7 @@ class NotesController {
       const newNote = await this.notesService.create(noteData);
       
       const noteId = newNote.id;
-      const notePath = path.join(__dirname, '../notes', `${noteId}.note`);
+      const notePath = path.join(__dirname, '../notas', `${noteId}.note`);
       fs.writeFile(notePath, JSON.stringify(newNote), (err) => {
         if (err) {
           return res.status(500).json({ message: 'Error creating note file', error: err.message });
@@ -34,7 +34,7 @@ class NotesController {
         return res.status(404).json({ message: 'Note not found' });
       }
 
-      const notePath = path.join(__dirname, '../notes', `${id}.note`);
+      const notePath = path.join(__dirname, '../notas', `${id}.note`);
       fs.writeFile(notePath, JSON.stringify(updatedNote), (err) => {
         if (err) {
           return res.status(500).json({ message: 'Error updating note file', error: err.message });
@@ -55,7 +55,7 @@ class NotesController {
         return res.status(404).json({ message: 'Note not found' });
       }
 
-      const notePath = path.join(__dirname, '../notes', `${id}.note`);
+      const notePath = path.join(__dirname, '../notas', `${id}.note`);
       fs.unlink(notePath, (err) => {
         if (err) {
           return res.status(500).json({ message: 'Error deleting note file', error: err.message });

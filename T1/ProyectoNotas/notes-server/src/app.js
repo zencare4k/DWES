@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const setRoutes = require('./routes/notesRoutes');
+const notesRoutes = require('./routes/notesRoutes');
+const authRoutes = require('./utils/auth');
 const logger = require('./utils/logger');
 const errorHandler = require('./utils/errorHandler');
 
@@ -14,7 +15,8 @@ app.use((req, res, next) => {
 });
 
 // Routes
-setRoutes(app);
+app.use('/api', notesRoutes);
+app.use('/auth', authRoutes);
 
 // Error handling middleware
 app.use(errorHandler);
