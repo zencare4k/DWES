@@ -9,7 +9,8 @@
     "edit": "echo 2| npm start ",
     "delete": "echo 3| npm start",
      "lint": "npx eslint . --ext .js",
-    "lint:fix": "npx eslint . --ext .js --fix"
+    "lint:fix": "npx eslint . --ext .js --fix",
+    "start server" : "node server.js"
   },
   "author": "",
   "license": "ISC",

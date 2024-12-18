@@ -1,0 +1,78 @@
+{
+  "info": {
+    "_postman_id": "12345678-1234-1234-1234-123456789012",
+    "name": "Notes API",
+    "description": "Collection of API requests for the Notes application.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Note",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"title\": \"Sample Note\", \"content\": \"This is a sample note.\"}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/notes",
+          "host": ["{{baseUrl}}"],
+          "path": ["notes"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Notes",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/notes",
+          "host": ["{{baseUrl}}"],
+          "path": ["notes"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Edit Note",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"title\": \"Updated Note\", \"content\": \"This is an updated note.\"}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/notes/{{noteId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["notes", "{{noteId}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Note",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "{{baseUrl}}/notes/{{noteId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["notes", "{{noteId}}"]
+        }
+      },
+      "response": []
+    }
+  ]
+}
