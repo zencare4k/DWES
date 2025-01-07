@@ -1,7 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-const setRoutes = require('./routes/index');
+const setRoutes = require('./routes/notesRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 // Create notes folder if it doesn't exist
-const notesDir = path.join(__dirname, 'notas');
+const notesDir = path.join(__dirname, 'notes');
 if (!fs.existsSync(notesDir)) {
   fs.mkdirSync(notesDir);
 }

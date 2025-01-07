@@ -1,34 +1,53 @@
+const axios = require('axios');
+
 class NotesService {
-  constructor() {
-    this.notes = [];
+  constructor(apiUrl) {
+    this.apiUrl = 'https://localhost:3000';
   }
 
   async create(noteData) {
-    const newNote = { id: this.notes.length + 1, ...noteData };
-    this.notes.push(newNote);
-    return newNote;
+    try {
+      const response = await axios.post(`${this.apiUrl}/notes`, noteData);
+      return response.data;
+    } catch (error) {
+      throw new Error('Error creating note: ' + error.message);
+    }
   }
 
   async edit(id, updatedData) {
-    const noteIndex = this.notes.findIndex(note => note.id === parseInt(id));
-    if (noteIndex === -1) {
-      return null;
+    try {
+      const response = await axios.put(`${this.apiUrl}/notes/${id}`, updatedData);
+      return response.data;
+    } catch (error) {
+      throw new Error('Error editing note: ' + error.message);
     }
-    this.notes[noteIndex] = { id: parseInt(id), ...updatedData };
-    return this.notes[noteIndex];
   }
 
   async delete(id) {
-    const noteIndex = this.notes.findIndex(note => note.id === parseInt(id));
-    if (noteIndex === -1) {
-      return null;
+    try {
+      const response = await axios.delete(`${this.apiUrl}/notes/${id}`);
+      return response.data;
+    } catch (error) {
+      throw new Error('Error deleting note: ' + error.message);
     }
-    const deletedNote = this.notes.splice(noteIndex, 1);
-    return deletedNote[0];
   }
 
   async getAll() {
-    return this.notes;
+    try {
+      const response = await axios.get(`${this.apiUrl}/notes`);
+      return response.data;
+    } catch (error) {
+      throw new Error('Error retrieving notes: ' + error.message);
+    }
+  }
+
+  async getById(id) {
+    try {
+      const response = await axios.get(`${this.apiUrl}/notes/${id}`);
+      return response.data;
+    } catch (error) {
+      throw new Error('Error retrieving note: ' + error.message);
+    }
   }
 }
 

@@ -1,0 +1,19 @@
+{
+  "name": "proyectonotasdx",
+  "version": "1.0.0",
+  "main": "Notes.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node Notes.js",
+    "crear": "echo 1 | node Notes.js",
+    "editar": "echo 2 | node Notes.js",
+    "eliminar": "echo 3 | node Notes.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  }
+}

@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const notesRoutes = require('./routes/notesRoutes');
 const authRoutes = require('./utils/auth');
 const logger = require('./utils/logger');
-const errorHandler = require('./utils/errorHandler');
+const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
 
