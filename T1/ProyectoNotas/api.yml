@@ -1,0 +1,122 @@
+openapi: 3.0.0
+info:
+  title: Notas API
+  version: 1.0.0
+paths:
+  /notes:
+    post:
+      summary: Crear una nueva nota en la carpeta /notes con la extensión .note
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                content:
+                  type: string
+      responses:
+        '201':
+          description: Nota creada en /notes con extensión .note
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  note:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      title:
+                        type: string
+                      content:
+                        type: string
+    get:
+      summary: Listar todas las notas
+      responses:
+        '200':
+          description: Lista de notas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    title:
+                      type: string
+                    content:
+                      type: string
+  /notes/{id}:
+    put:
+      summary: Editar una nota existente en la carpeta /notes con la extensión .note
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                content:
+                  type: string
+      responses:
+        '200':
+          description: Nota actualizada en /notes con extensión .note
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  note:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      title:
+                        type: string
+                      content:
+                        type: string
+    delete:
+      summary: Eliminar una nota existente en la carpeta /notes con la extensión .note
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Nota eliminada de /notes con extensión .note
+  /admin:
+    get:
+      summary: Acceso a la sección de administración
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Acceso permitido a la sección de administración
+        '403':
+          description: Acceso denegado
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
