@@ -1,0 +1,27 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 12pt;
+    line-height: 1.5;
+}
+
+header, footer, nav, aside {
+    display: none;
+}
+
+article {
+    margin: 20px;
+}
+
+h1, h2, h3 {
+    color: black;
+}
+
+p {
+    color: black;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
