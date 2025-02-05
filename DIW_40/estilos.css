@@ -1,0 +1,65 @@
+nav > ul{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Musica{
+    list-style: circle;
+}
+
+.Videojuegos{
+    list-style: square;
+}
+
+.Jefes{
+    list-style: georgian;
+}
+
+.Peliculas{
+    list-style: decimal;
+}
+
+.Anime{
+    list-style: lower-alpha;
+}
+
+.Dibujo{
+    list-style: upper-alpha;
+}
+
+.Consolas{
+    list-style: lower-roman;
+}
+
+.PC{
+    list-style: upper-roman;
+}
+
+.Personajes{
+    list-style: none;
+}
+
+.PDragon{
+    list-style:lower-greek;
+}
+
+.Perifericos{
+    list-style: lower-latin;
+}
+
+.Elementos{
+    list-style: upper-latin;
+}
+
+.Material{
+    list-style:decimal-leading-zero;
+}
+
+.Comics{
+    list-style: upper-armenian;
+}
+
+.Comida{
+    list-style: lower-armenian;
+}
